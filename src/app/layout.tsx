@@ -3,6 +3,7 @@ import { Noto_Sans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ClerkProvider } from '@clerk/nextjs';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import './globals.css';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
@@ -24,14 +25,14 @@ export default function RootLayout({
       className={cn('h-full', 'antialiased', 'font-sans', notoSans.variable)}
     >
       <body className='flex min-h-full flex-col'>
-        <ClerkProvider>
+        <ClerkProvider appearance={{ cssLayerName: 'clerk' }}>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
           </ThemeProvider>
         </ClerkProvider>
       </body>
